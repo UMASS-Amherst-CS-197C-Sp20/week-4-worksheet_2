@@ -62,10 +62,31 @@ void print_arr(int *arr, int n){
 */
 int** build_2darr(int n){
    //TODO
-   return NULL;
+  // Int *arr is a pointer to int array (which is the memory address)
+//*(arr) is the actual value of the first element in the int array
+//*(arr+1) is the actual value of the second element in the array
+  int** arr = (int**) malloc(n * sizeof(int*)); 
+  for (int i = 0; i < n; i++){
+    *(arr+i) = createID(i);
+    
+  }
+
+ 
+   	
+  return arr;	
 }
 
+ int* createID(int n){       //makes a 1D int array, fills that array in with n - 1 (n =size of array);
+  int* arr = (int*) malloc((n+1) * sizeof(int));
+  for (int i = 0; i < n; i++){
+    *(arr+i) = n;
+    
+  }
+  return arr;
+ }      
 // print the 2d array you build previously
 void print_2darr(int** arr, int n){
    //TODO
+  
+	
 }

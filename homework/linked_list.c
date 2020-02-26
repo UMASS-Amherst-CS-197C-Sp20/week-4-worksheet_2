@@ -25,19 +25,41 @@ POINTER alloc(VALUE value) {
 // How do you count the items in a linked list?
 int list_size(POINTER start) {
   // TODO, does nothing right now.
-  return -1;
+  POINTER temp = start;
+  int count = 0;
+  while (temp != NULL){
+    temp =  temp->next;
+    count++;
+  }
+  return count;
 }
 
 // How do you add an item to the end of a linked list?
 void push_back(POINTER start, VALUE value) {
   // TODO, does nothing right now.
+  POINTER new =  alloc(value);
+  assert(new != NULL);
+  POINTER temp = start;
+  while(temp->next != NULL){
+    temp = temp->next;
+  }
+  temp->next = new;
   return;
 }
 
 bool list_equals_array(POINTER list, double* array, int array_len) {
   if (list_size(list) != array_len) return false;
   // TODO, do this better!
-  return false;
+  POINTER cur = list;
+  int i = 0;
+  while(cur != NULL && (i < array_len)){
+   if (cur->value !=  *(array + i)){
+     return false;
+   }
+   cur = cur->next;
+   i++;
+  }  
+  return true;
 }
 
 // Given a value and a list, alloc a new entry and put it on the front of this list.
@@ -54,7 +76,18 @@ POINTER push_front(VALUE value, POINTER list) {
 // the list becomes: 1->2->4->5
 bool remove_value(POINTER start, VALUE value){
   //TODO
-  return false;
+  POINTER cur = start;
+  POINTER prev = start;
+  while(cur != NULL){
+    if(cur->value == value){
+      prev = cur->next;
+      return 1;
+    } else{
+      prev = cur;
+      cur = cur->next;
+    }
+  }
+  return 0;
 }
 
 // Given the start of a list, reverse the list and return the start after the reverse
@@ -62,7 +95,17 @@ bool remove_value(POINTER start, VALUE value){
 // the list becomes: 5->4->3->2->1
 POINTER reverse_list(POINTER start){
   //TODO
-  return NULL;
+  POINTER prev = NULL;
+  POINTER cur = start;
+  POINTER next = NULL;
+  while (cur != NULL){
+    next = cur->next;
+    cur->next = prev;
+    
+    prev = cur;
+    cur = next;
+  }
+  return start;
 }
 
 // Given a list, take its first element off and put it in the free list.
